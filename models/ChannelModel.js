@@ -14,6 +14,6 @@ const ChannelSchema = new mongoose.Schema({
 
 });
 
-BingoSchema.set('toJSON', { getters: true });
+ChannelSchema.set('toJSON', { getters: true });
 
 module.exports.Channel = mongoose.model('Channel', ChannelSchema);

@@ -34,7 +34,7 @@ type Query{
 type Mutation{
     createChannel(name:String!): Channel!
     joinChannel(userName: String!, code:String!): Channel
-    sendChat(channel:ID!, user: ID!, message: String): Chat
+    sendChat(channelId:ID!, userId: ID!, message: String): Chat
 }
 
 type Subscription {

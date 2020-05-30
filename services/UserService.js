@@ -32,15 +32,15 @@ const joinChannel =  function (userName, code) {
 
     return new Promise(async (resolve, rejects) => {
 
-        let chanel = await findChannelByCode(code)
+        let channel = await findChannelByCode(code)
         
-        if(!chanel){
+        if(!channel){
             resolve(null)
         }else{
 
             const doc = new User({
                 name: userName,
-                chanel: chanel._id
+                channel: channel._id
             })
     
             doc.id = doc._id;
@@ -49,8 +49,8 @@ const joinChannel =  function (userName, code) {
                 if (error) {
                     rejects(error)
                 }
-                doc.chanel = chanel
-                resolve(doc)
+
+                resolve(channel)
             }))
         }
 

@@ -1,4 +1,6 @@
 const {Chat}  = require( '../models/ChatModel')
+const {findChannel} = require('./ChannelService')
+const {findUser} = require('./UserService')
 
 const fetchChats = function () {
     return new Promise((resolve, reject) => {
@@ -25,22 +27,29 @@ const findChat = function(id) {
 }
 
 
-const createChat = async function (channelId, userId, message) {
+const createChat =  function (channelId, userId, message) {
 
 
-    const doc = new Chat({
-        message,
-        channel: channelId,
-        user: userId
-    })
 
-    doc.id = doc._id;
 
-    return new Promise((resolve, rejects) => {
+    return new Promise(async (resolve, rejects) => {
+        let channel = await  findChannel(channelId)
+        let user = await  findUser(userId)
+
+        const doc = new Chat({
+            message,
+            channel: channelId,
+            user: userId
+        })
+
+        doc.id = doc._id;
+
         doc.save((error => {
             if (error) {
                 rejects(error)
             }
+            doc.channel = channel
+            doc.user = user
             resolve(doc)
         }))
     })
